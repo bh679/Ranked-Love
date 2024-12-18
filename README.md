@@ -1,12 +1,7 @@
-# JudgeGPT
-<a href="https://brennan.games/JudgeGPT/">Play at ``brennan.games/JudgeGPT``</a><br />
+# Ranked Love
+<a href="https://brennan.games/RankedLove/">Play at ``brennan.games/JudgeGPT``</a><br />
 
-JudgeGPT, the game where ai decides you or your friends fate in courtroom. 
-It also decides well as what you are been accused of. 
-You each have one chance to prove your innocence. 
-Convince the ai judge you are innocent. 
-Efficient and succinct justice with all the bias and inaccuracy of ai.
-Who is better at convincing the Judge they are innocent?
+This app is a celebration of the complex emotions we experience in relationships, particularly jealousy—a deeply misunderstood and often vilified feeling. Rather than fearing or suppressing it, this project radically embraces jealousy as a beautiful and powerful emotion. Jealousy can remind us of our capacity for love, desire, and care—a reflection of how much someone matters to us. The app challenges cultural norms that glorify control, possessiveness, and toxic behaviors around jealousy. Instead, it asks us to explore healthier, more creative ways to experience and express these feelings, normalizing openness and love for multiple people without restriction.
 
 ## Setup 
 ### Server Setup
