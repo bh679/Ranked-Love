@@ -49,3 +49,6 @@ Check log ``pm2 log``
 
 ### Wed 18 Dec 2024
 Did a <a href="https://www.facebook.com/brennan.hatton/posts/pfbid0oLbRezQTLm5CWLhUknMHXqfDQ9t4QNAkPCirxuGvtoEt9wy3TqXnyiFBxQzjNDERl">facebook post</a> and survey asses it as a product. I learnt that a lot of people hate this idea, but there is some part of how bold the controversy is that I like. I feel like it highlights projections of insecurities which in itself is some kind of art piece.
+<img width="693" alt="Screenshot 2024-12-18 at 3 30 31 pm" src="https://github.com/user-attachments/assets/9b0f76f8-b05b-4950-ab2b-b7c974d1c4bf" />
+![image](https://github.com/user-attachments/assets/c51254ef-5ba5-46c4-a55e-bb33646db3c2)
+
