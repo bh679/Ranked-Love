@@ -1,0 +1,222 @@
+#hero
+{
+    padding-top: 20%;
+    /*text-shadow: 0 0 2rem rgba(255,255,255, .55);*/
+}
+
+
+
+/*
+User Input
+*/
+
+#inputGroup
+{
+    padding-top: 25px;;
+}
+body, html {
+    height: 100%;
+    margin: 0;
+    position: relative;
+    overflow: auto;
+}
+
+/*
+
+Background
+
+*/
+
+#background {
+    content: "";
+    background: var(--bg-image) no-repeat center center fixed; 
+    background-size: cover;
+    opacity: var(--bg-opacity);
+    transition: opacity 5s ease-in-out;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: fixed;  /* This will make the div stick to the screen. */
+    z-index: -2;   
+    width: 100%;
+    height: 100%;
+}
+
+#page {
+    position: relative; /* This will make the page content sit on top of the background. */
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#courtRoom
+{
+    padding-right: calc(var(--bs-gutter-x) * 1);
+    padding-left: calc(var(--bs-gutter-x) * 1);
+}
+
+.Analysis
+{
+
+}
+
+#analysis0
+{
+    background-color: rgba(200, 200, 247, 0.75);
+}
+
+#analysis1{
+    background-color: rgba(200, 246, 200, 0.75);
+}
+
+
+/*
+
+Identity
+
+*/
+
+.profilePicture
+{
+    width:60%;
+    margin:20px
+}
+
+.border-transparent {
+  border-color: transparent !important;
+}
+
+
+/* Large desktop * /
+@media (min-width: 1200px) { ... }*/
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+
+    .col-s-12 {
+        width: 100%;
+    }
+    .col-s-6 {
+        width: 50%;
+    }
+    .col-s-4 {
+        width: 33.33333%;
+    }
+    .col-s-3 {
+        width: 25%;
+    }
+
+ }
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+
+    .col-s-12 {
+        width: 100%;
+    }
+    .col-s-6 {
+        width: 50%;
+    }
+    .col-s-4 {
+        width: 33.33333%;
+    }
+    .col-s-3 {
+        width: 25%;
+    }
+
+    .col-xs-12 {
+        width: 100%;
+    }
+    .col-xs-6 {
+        width: 50%;
+    }
+    .col-xs-4 {
+        width: 33.33333%;
+    }
+    .col-xs-3 {
+        width: 25%;
+    }
+
+ }
+/* Landscape phones and down */
+@media (max-width: 480px) { 
+
+
+
+
+    .col-s-12 {
+        width: 100%;
+    }
+    .col-s-6 {
+        width: 50%;
+    }
+    .col-s-4 {
+        width: 33.33333%;
+    }
+    .col-s-3 {
+        width: 25%;
+    }
+
+    .col-xs-12 {
+        width: 100%;
+    }
+    .col-xs-6 {
+        width: 50%;
+    }
+    .col-xs-4 {
+        width: 33.33333%;
+    }
+    .col-xs-3 {
+        width: 25%;
+    }
+
+    .col-xxs-12 {
+        width: 100%;
+    }
+    .col-xxs-6 {
+        width: 50%;
+    }
+    .col-xxs-4 {
+        width: 33.33333%;
+    }
+    .col-xxs-3 {
+        width: 25%;
+    }
+    .col-xxs-2 {
+        width: 16.66666%;
+    }
+    /* ... continue for other grid fractions ... */
+}
+
+#audioSettingsContainer{
+    max-width: 500px;
+}
+
+/* Set the image size to match the height of the toggle switch */
+.audio-settings-icon {
+    width: 15px; /* Adjust this value as needed */
+    height: 15px; /* Adjust this value as needed */
+    filter: brightness(0) invert(1); /* This makes the image black */
+}
+
+/* Remove padding from the button to match the size of the toggle */
+#audioSettingsButton {
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px; /* Match the height of the toggle switch */
+    width: 20px; /* Ensure button has the same size width */
+}
+
+#debugOutput {
+    display: none;
+    font-family: monospace; /* Makes the JSON more readable */
+    white-space: pre-wrap;  /* Ensures that lines break nicely within the container */
+    background-color: #f8f8f8; /* Light background for better visibility */
+    padding: 10px;           /* Adds some space around the text */
+    border: 1px solid #ccc;  /* Adds a border to differentiate from the rest of the content */
+    overflow-x: auto;        /* Handles long lines of text without breaking the layout */
+}

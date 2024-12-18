@@ -1,0 +1,681 @@
+</html>
+<!DOCTYPE html>
+<!-- This site was created in Webflow. https://www.webflow.com -->
+<!-- Last Published: Thu May 18 2023 15:06:15 GMT+0000 (Coordinated Universal Time) -->
+<html data-wf-domain="">
+    <head>
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1760E3YTQP"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-1760E3YTQP');
+        </script>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>JudgeGPT</title>
+
+        <!-- Bookstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <!-- Judge GPT Style Shee -->
+        <link rel="stylesheet" type="text/css" href="./style.css">
+        <link rel="stylesheet" type="text/css" href="./courtroomChat.css">
+
+        <!-- JdugeGPT -->
+        <script src="./js/backgroundImages.js"></script>
+        <script src="./js/History.js"></script>
+        <script src="./js/ElevenLabsClient.js"></script>
+        <script src="./js/courtroomChat.js"></script>
+
+
+        <!-- timer (needs a file namechage) -->
+        <link rel="stylesheet" type="text/css" href="./progresbar.css">
+
+
+    </head>
+
+    <body class="body">
+
+        <!-- tool tips -->
+        <script>
+            $(function () {
+              $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
+
+        <!-- background -->
+        <div id="background">
+            <!-- This div will serve as your background. -->
+        </div>
+
+        
+
+        <!-- The Game -->
+        <div>
+
+            <!-- heading -->
+            <div class="container" id="hero" style="padding-top: 80px;">
+                <center>
+                    <h1><a href="/JudgeGPT" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">JudgeGPT</a></h1>
+
+                    <!-- Flex container for heading and button -->
+                    <div style="display: flex; justify-content: center; align-items: center; position: relative;">
+                        <h5 id="subheading" style="text-align: center; flex-grow: 1;">Archives</h5>
+                        <!-- Search Settings Button -->
+                        <button id="SearchSettingsButton" class="btn btn-outline-primary" style="position: absolute; right: 0;" onclick="ToggleSearchSettings()">
+                            <img class="audio-settings-icon" src="./images/icons/icon_tool_1.png">
+                        </button>
+                    </div>
+
+                    <h8 id="CaseDate">
+                    </h8>
+                    <h4 style="display: flex; align-items: center;">
+                        <img src="./images/icons/icon_common_40.png" width="25px" onclick="LastCase()">
+                        <div id="CaseTitle" style="flex-grow: 1; text-align: center;">Your Case Title</div>
+                        <img src="./images/icons/icon_common_40.png" width="25px" onclick="NextCase()" style="transform: scaleX(-1);">
+                    </h4>
+                </center>
+
+
+
+           <!-- Hidden Search Settings -->
+            <div class="container" id="SearchSettingsContainer">
+                <div id="SearchSettings" class="container" style="display: none; margin-top: 10px;">
+                    <div class="row">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="debugSwitch">
+                            <label class="form-check-label" for="flexSwitchCheckChecked">Debug</label>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label for="caseCompleteDropdown" class="form-label">Case Complete</label>
+                            <select class="form-select" id="caseCompleteDropdown">
+                                <option value="Not Started">Case Presented</option>
+                                <option value="Undecided">Defendant Responded</option>
+                                <option value="Ruling" selected>Ruling</option>
+                                <option value="Punishment">Punishment</option>
+                                <option value="Lesson">Lesson</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label for="playersDropdown" class="form-label">Players</label>
+                            <select class="form-select" id="playersDropdown">
+                                <option value="With Human" selected>With Human</option>
+                                <option value="Only Human">Only Human</option>
+                                <option value="Only AI">Only AI</option>
+                                <option value="Any">Include None</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+                <div class="d-flex justify-content-center">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="voicesSwitch" onchange="messageUI.ToggleVoices(this.checked)">
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Voiced</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- chat -->
+            <div class="container">
+
+                <div class="row">
+                    <pre id="debugOutput"></pre>
+                </div>
+
+                <div class="row">
+
+                    <!-- Courtroom -->
+                    <div id="courtRoom" class="col-9 col-xs-12">
+
+                        <!-- Hearing -->
+                        <div id="chat">
+                            <div class="message row judge">
+                                <div class="col-4 col-s-3 col-xxs-2 sender" style="">Brennan Hatton</div>
+                                <div class="col messageContents rounded-3" id="brennan">Loading...</div>
+                            </div>
+                    </div>
+                        <div id="typing"></div>
+
+                        <center hidden>
+                            <button id="joinHearingButton" class="button w-button rounded" onclick="UI.TryJoinHearing()" style="margin: 10%;">Join</button>
+                        </center>
+                        <div id="endButtons">
+                            <div id="analysisGroup" class="row">
+                                <div id="analysis0" class="Analysis col-6"></div>
+                                <div id="analysis1" class="Analysis col-6"></div>
+                            </div>
+                            <div class="row" hidden>
+                                <button id="restartButton" class="button w-button col" onclick="location.reload()">
+                                    Restart
+                                </button>
+                                <button id="analysisButton" class="button w-button col" onclick="UI.Analysis()">
+                                    Analyze Responses
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <div id="inputGroup" class="row">
+                            <div class="col-4 col-s-3 col-xxs-2 sender">You:</div>
+
+                            <div class="col">
+                                <div class="row">
+                                    <button id="submitButton" class="button w-button rounded-3 col" onclick="window.location.href = './'">
+                                        Back To Game
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audience / Gallery -->
+                    <div class="col" hidden>
+
+                        <!-- User Profile / Identity -->
+                        <div class="row" hidden>
+                            <div class="card" style="margin:5px">
+                                <center style="margin:20px">
+                                    <div id="courtRoomIdentity">
+                                    </div>
+                                    <!--button id="joinHearingButton" class="button w-button rounded" onclick="UI.TryJoinHearing()">Join</button-->
+                                </center>
+                            </div>
+                        </div>
+
+
+                        <!-- Hearing Participants -->
+                        <div class="row">
+                            <h3>In Court</h3>
+                        </div>
+                        <div id="playerList" class="row">
+                            <div class="card col-4" style="margin:5px" hidden>
+                                <center style="margin:5px;">
+                                        <img src="https://brennan.games/JudgeGPT/images/profiles/brennanhatton_profile_picture_of_person_preparing_to_go_to_cour_e2da51d0-fb44-4204-96fe-9bb4c311e862.png" class="rounded-circle" style="width:80%; margin:0%"/> 
+                                        <div>Name</div>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row" id="audience">
+                        </div>
+                        <div id="chatRoom" class="chatRoom">
+                            <ul id="chatRoomMessages"></ul>
+                            <form id="chatRoomMessageForm">
+                              <input type="text" id="chatRoomInput" autocomplete="off" />
+                              <button type="submit">Send</button>
+                            </form>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Winner -->
+            <div class="container fixed-top" style="z-index: -1;   ">
+                <img id="winner" src="" style="opacity: 0.45;"/>
+                <img src="./images/guilty.png" hidden/>
+                <img src="./images/notguilty.png" hidden/> <!-- find a better way to preload these -->
+            </div>
+
+        </div>    
+        <!-- End of game-->
+
+        <div style="padding-bottom: 50px;"></div>
+
+       <!-- Header -->
+        <div class="container fixed-top">
+            <div class="row">
+                <div class="col" style="display: inline-block; background-color: white;">
+                    <p>
+                        <a href="./index.html" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">JudgeGPT</a> | 
+                        <a href="./about.html" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">About</a> | 
+                        <a href="./history.html" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Case Archives</a> | 
+                        <a href="./credits.html" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Team</a> | 
+                        <a href="https://github.com/bh679/JudgeGPT/blob/main/README.md" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" target="_blank">News</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="settings">
+            
+        </div>
+
+<!--
+
+<a href="https://life.brennanhatton.com" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"target="_blank">BrennanHatton.com</a> | 
+                    <a href="https://github.com/bh679" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"target="_blank">Github</a> | 
+                    <a href="https://discord.gg/4sXaaAYHDQ" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" target="_blank">Discord</a> | 
+                    <a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" onclick="Restart();">Restart</a> | 
+                    <a href="https://brennan.games/JudgeGPT_v0/" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">V0</a> | 
+                    <a href="./credits.html" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Credits</a>
+                </p
+-->
+
+    <script>
+
+        // Define global variables
+        const hero =  document.getElementById('hero');
+        const brennan =  document.getElementById('brennan');
+        const faith =  document.getElementById('faith');
+        const tim =  document.getElementById('tim');
+        const dale =  document.getElementById('dale');
+        const colin =  document.getElementById('colin');
+        const chatDiv = document.getElementById('chat');
+        const caseTitleElement = document.getElementById("CaseTitle");
+        const caseDateElement = document.getElementById("CaseDate");
+        const searchSettingsContainer = document.getElementById("SearchSettings");
+        const searchSettingsButton = document.getElementById("SearchSettingsButton");
+        const debugSwitchElement = document.getElementById("debugSwitch");
+        const debugOutputElement = document.getElementById("debugOutput");
+        var caseId = -1;
+        var gameCase;
+        var caseMaxID = -1;
+        var searchSettingsVisible = false;
+        var userDebugMode = false;
+
+
+        // Get selected values from dropdowns
+        const caseCompleteDropDown = document.getElementById('caseCompleteDropdown');
+        const playersDropDown = document.getElementById('playersDropdown');
+
+        // Add event listeners to call UpdateSettings when dropdown values are changed
+        caseCompleteDropDown.addEventListener('change', UpdateSettings);
+        playersDropDown.addEventListener('change', UpdateSettings);
+        debugSwitchElement.addEventListener('change', DebugSwitch);
+
+
+
+        BackgroundImages.SetBackground();
+
+        messageUI = new MessageUI(chatDiv);
+
+        var forward = false;
+
+        function LastCase()
+        {
+            forward = false;
+
+            if(caseId <= 0)
+                UpdateCaseID(caseMaxID);
+            else
+                UpdateCaseID(caseId-1);
+
+            caseTitleElement.textContent = "Loading ... ";
+            chatDiv.textContent = "";
+            SetText();
+        }
+
+        function NextCase()
+        {
+            forward = true;
+
+            if(caseId >= caseMaxID)
+                UpdateCaseID(0);
+            else
+                UpdateCaseID(Number(caseId) + 1);
+
+            caseTitleElement.textContent = "Loading ... ";
+            chatDiv.textContent = "";
+            SetText();
+        }
+
+
+        function UpdateCaseID(newCaseId)
+        {
+
+            caseId = newCaseId;
+
+            // Update the URL without refreshing the page
+            const newUrl = `${window.location.pathname}?id=${newCaseId}`;
+            window.history.pushState({ path: newUrl }, '', newUrl);
+
+            console.log("Case ID added to the URL:", newCaseId);
+        }
+
+        function GetCaseFromURL()
+        {
+            // Parse the ID from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            caseId = urlParams.get('id');
+            
+            if (!caseId) {
+                console.error("No case ID found in the URL.");
+
+                if(caseMaxID != -1)
+                    caseId = caseMaxID;
+                else
+                    caseId = 0;
+                console.log("caseID:"+caseId);
+
+                return;
+            }
+        }
+
+
+        // Function to get settings from the URL
+        function GetSettingsFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Get the 'caseComplete' and 'players' parameters from the URL
+            const caseComplete = urlParams.get('caseComplete');
+            const players = urlParams.get('players');
+            const debug = urlParams.get('debug');
+
+            // Update dropdown values only if they are present in the URL
+            if (caseComplete) {
+                caseCompleteDropDown.value = caseComplete;
+                console.log("Case Complete setting found in URL:", caseComplete);
+            } else {
+                console.log("No Case Complete setting found in the URL.");
+            }
+
+            if (players) {
+                playersDropDown.value = players;
+                console.log("Players setting found in URL:", players);
+            } else {
+                console.log("No Players setting found in the URL.");
+            }
+
+            if(debug)
+            {
+                debugSwitchElement.checked = true;
+                DebugSwitch();
+            }
+        }
+
+        // Function to update settings and reflect them in the URL
+        function UpdateSettings() {
+
+            // Build the new URL with the updated settings
+            var newUrl = `${window.location.pathname}?caseComplete=${encodeURIComponent(caseCompleteDropDown.value)}&players=${encodeURIComponent(playersDropDown.value)}`;
+
+            // Add debug parameter if the debug flag is on
+            if (userDebugMode) {
+                newUrl += `&debug=${encodeURIComponent(userDebugMode)}`;
+            }
+            
+            // Update the URL without refreshing the page
+            window.history.pushState({ path: newUrl }, '', newUrl);
+
+            console.log("Settings updated in the URL:", newUrl);
+        }
+
+
+        const caseCompleteDropdown = document.getElementById('caseCompleteDropdown');
+        const playersDropdown = document.getElementById('playersDropdown');
+
+        function CheckCaseValid(messagesData, playersData)
+        {
+
+            if(userDebugMode)
+                return true;
+
+            if(!CheckCaseCompeleteValid(messagesData))
+                return false;
+
+            console.log("CheckCaseCompeleteValid");
+
+            if(!CheckCasePlayersValid(playersData))
+                return false;
+
+            console.log("CheckCasePlayersValid");
+
+            return true;
+
+
+        }
+
+        function DebugSwitch()
+        {
+            console.log(debugSwitchElement.checked );
+            userDebugMode = (debugSwitchElement.checked);
+
+            debugOutputElement.style.display = userDebugMode ? "inline" : "none";
+
+            caseCompleteDropDown.disabled = userDebugMode;
+            playersDropDown.disabled = userDebugMode;
+
+            UpdateSettings();
+
+            SetText();//The way this is called here means if the switch is switched while SetTExt is running, it will adjust the ID
+            
+        }
+
+        function CheckCaseCompeleteValid(messagesData)
+        {
+            const selectedCaseComplete = caseCompleteDropdown.options[caseCompleteDropdown.selectedIndex].value;
+
+            // Switch statement for 'Case Complete'
+            switch (selectedCaseComplete) {
+                case 'Debug':
+                    console.log('Case is in Debug mode.');
+                    // Add any logic for 'Debug' here
+                    
+                    return true;
+
+                    break;
+                case 'Not Started':
+                    console.log('Case Presented: ' + messagesData.length);
+                    // Add any logic for 'Not Started' here
+
+                    if(messagesData.length >= 1)
+                        return true;
+
+                    break;
+                case 'Undecided':
+                    console.log('Case Responded: ' + messagesData.length);
+                    // Add any logic for 'Undecided' here
+
+                    if(messagesData.length >= 3)
+                        return true;
+
+                    break;
+                case 'Ruling':
+                    console.log('Case is at the Ruling stage.');
+                    // Add any logic for 'Ruling' here
+                    if(gameCase.ruling != "")
+                        return true;
+
+                    break;
+                case 'Punishment':
+                    console.log('Case is at the Punishment stage.');
+                    // Add any logic for 'Punishment' here
+                    if(gameCase.punishment != "")
+                        return true;
+                    break;
+                case 'Lesson':
+                    console.log('Case is at the Lesson stage.');
+                    // Add any logic for 'Lesson' here
+                    if(gameCase.lesson != "")
+                        return true;
+                    break;
+                default:
+                    console.logError('Unknown Case Complete state.');
+                    return true;
+            }
+                    return false;
+        }
+
+        function CheckCasePlayersValid(playersData)
+        {
+
+            const selectedPlayers = playersDropdown.options[playersDropdown.selectedIndex].value;
+
+            // Switch statement for 'Players'
+            switch (selectedPlayers) {
+                case 'With Human':
+                    console.log('Players include both AI and Human.');
+                    console.log(playersData);
+                    if(!playersData)
+                        return false;
+
+                    console.log(Object.keys(playersData).length);
+                    if(Object.keys(playersData).length > 0)
+                        return true; 
+
+                    break;
+                case 'Only Human':
+                    console.log('Only Human players.');
+                    if(playersData == null)
+                        return false;
+
+                    if(Object.keys(playersData).length >= 2)
+                        return true;
+
+                    // Add any logic for 'Only Human' here
+                    break;
+                case 'Only AI':
+                    console.log('Only AI players.');
+                    if(playersData == null)
+                        return true;
+
+                    if(Object.keys(playersData).length == 0)
+                        return true;
+                    // Add any logic for 'Only AI' here
+                    break;
+                case 'Any':
+                    return true;
+                    // Add any logic for 'Only AI' here
+                    break;
+                default:
+                    console.log('Unknown Players selection.');
+            }
+
+            return false;
+
+        }
+        
+        
+        async function SetText() {
+            var historyManager = new HistoryManager();
+
+            if(caseMaxID == -1)
+            {
+                var gameCaseMaxIDResponse = await historyManager.GetCaseMaxID();
+                console.log("gameCaseMaxIDResponse: " + gameCaseMaxIDResponse);
+
+                caseMaxID = gameCaseMaxIDResponse.MaxID;
+            }
+
+            if(caseId == -1)
+                GetCaseFromURL();
+
+
+
+            // Wait for the promise to resolve and get the result
+            try {
+                var gameCaseResponse = await historyManager.GetCase({ id: parseInt(caseId) });
+
+                // Now access the `case` property from the response
+                gameCase = gameCaseResponse.case;
+                console.log(gameCase);
+
+                if(gameCase == null)
+                {
+                    caseTitleElement.textContent = "Case "+caseId+" not found";
+
+                    var gameCaseMaxIDResponse = await historyManager.GetCaseMaxID();
+                    console.log("gameCaseMaxIDResponse: " + gameCaseMaxIDResponse);
+
+                    caseMaxID = gameCaseMaxIDResponse.MaxID;
+
+                    /*if(forward)
+                        NextCase();
+                    else
+                        LastCase();*/
+                    return; 
+
+                }else if(gameCase.caseTitle == null)
+                {
+                    caseTitleElement.textContent = "Case "+caseId;
+                }
+
+                if (userDebugMode) {
+                    debugOutputElement.textContent = JSON.stringify(gameCase, null, 2);
+                }
+
+
+                // Set the content of the element
+                
+                caseTitleElement.textContent = "Case: " + gameCase.caseTitle;
+
+                // Assuming gameCase.timeSaved is in milliseconds since the Unix epoch
+                const timestamp = gameCase.timeSaved;
+                const dateObject = new Date(timestamp);
+
+                // You can format the date however you'd like
+                const formattedDate = dateObject.toLocaleString(); // This will give a readable date and time string
+
+                // Setting the formatted date to the textContent
+                caseDateElement.textContent = formattedDate;
+
+
+                // Extract and format players
+                var playersData = JSON.parse(gameCase.players);
+                console.log(playersData);
+
+                // Extract and format messages
+                var messagesData = JSON.parse(gameCase.messages).messages;
+                console.log(messagesData);
+
+                if(!CheckCaseValid(messagesData, playersData))
+                {
+                    if(forward)
+                        NextCase();
+                    else
+                        LastCase();
+
+                    return;
+                }
+
+                //reset chat
+                messageUI = new MessageUI(chatDiv);
+
+                // Assuming messageUI.AddMessage(sender, message) is a function that accepts a sender and a message as parameters.
+                for (let i = 0; i < messagesData.length; i++) {
+                    let messageData = messagesData[i];
+                    messageUI.AddMessage(messageData.sender, messageData.message);
+                }
+
+
+                var gameCaseMaxIDResponse = await historyManager.GetCaseMaxID();
+                console.log(gameCaseMaxIDResponse);
+
+            } catch (error) {
+                console.error("Error fetching the case:", error);
+            }
+        }
+
+        function ToggleSearchSettings()
+        {
+
+            searchSettingsVisible = !searchSettingsVisible;
+
+            if(searchSettingsVisible)
+                searchSettingsContainer.style.display = 'inline';
+            else
+            {
+                searchSettingsContainer.style.display = 'none';
+                searchSettingsButton.classList.remove('pressed');
+            }
+
+        }
+
+        SetText();
+
+    </script>
+
+
+    </body>
+</html>
