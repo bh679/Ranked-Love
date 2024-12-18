@@ -16,16 +16,11 @@ IPv6 firewall: Custom	TCP	3000 Any IPv6 address<br />
 Replace the ``/opt/bitnami/apache/conf/bitnami/bitnami-ssl.conf``<br />
 ``sudo /opt/bitnami/ctlscript.sh restart apache``<br />
 <br />
-````npm install -g pm2````<br />
-``npm installc cors``<br />
-``npm install express``<br />
-``npm install axios``<br />
-``npm install elevenlabs-node``<br />
-``npm install play-sound``<br />
-``npm install sqlite3``<br />
-``npm install dotenv``//cant tell if I am using this<br /> 
-``npm install multer``
-``npm install form-data``
+
+Run setup.sh <br />
+``chmod +x setup.sh``
+``./setup.sh``
+
 Put evnionment variables into ``env.js``
 Looking like this
 ```const ENV = {};
@@ -40,10 +35,7 @@ Public Client Setup
 ``npm i bootstrap@5.3.0``<br />
 
 ## Run
-Move into the server folder.
-Run ``pm2 start ecosystem.config.js``
-Check status ``pm2 status``
-Check log ``pm2 log``
+
 
 ## Update
 
