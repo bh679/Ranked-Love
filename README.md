@@ -1,5 +1,5 @@
 # Ranked Love
-<a href="https://brennan.games/RankedLove/">Play at ``brennan.games/RankedLove``</a><br /> (not yet live)
+<a href="https://brennan.games/RankedLove/">Coming soon to ``brennan.games/RankedLove``</a><br />
 
 This app is a celebration of the complex emotions we experience in relationships, particularly jealousy—a deeply misunderstood and often vilified feeling. Rather than fearing or suppressing it, this project radically embraces jealousy as a beautiful and powerful emotion. Jealousy can remind us of our capacity for love, desire, and care—a reflection of how much someone matters to us. The app challenges cultural norms that glorify control, possessiveness, and toxic behaviors around jealousy. Instead, it asks us to explore healthier, more creative ways to experience and express these feelings, normalizing openness and love for multiple people without restriction.
 
